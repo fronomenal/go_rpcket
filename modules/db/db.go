@@ -10,7 +10,7 @@ type Pool struct {
 }
 
 func Conn() (Pool, error) {
-	db, err := sqlx.Connect("sqlite3", "../rockets.db")
+	db, err := sqlx.Connect("sqlite3", "./rockets.db")
 	if err != nil {
 		return Pool{db: db}, err
 	}

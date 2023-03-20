@@ -13,6 +13,11 @@ func Start() error {
 		return err
 	}
 
+	if err := dbpool.Migrate(); err != nil {
+		log.Println("Failed to run migrations")
+		return err
+	}
+
 	_ = rocket.GetService(dbpool)
 
 	return nil
