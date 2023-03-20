@@ -5,6 +5,7 @@ import (
 
 	"github.com/fronomenal/go_rpcket/modules/db"
 	"github.com/fronomenal/go_rpcket/modules/rocket"
+	"github.com/fronomenal/go_rpcket/modules/transport/grpc"
 )
 
 func Start() error {
@@ -18,7 +19,12 @@ func Start() error {
 		return err
 	}
 
-	_ = rocket.GetService(dbpool)
+	rocService := rocket.GetService(dbpool)
+	rocHandler := grpc.GetHandler(rocService)
+
+	if err := rocHandler.Serve(); err != nil {
+		return err
+	}
 
 	return nil
 }
