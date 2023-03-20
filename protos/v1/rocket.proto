@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package rocket;
+option go_package = "./";
+
+service RocketService {
+  rpc GetRocket (GetReq) returns (GetRes);
+  rpc SetRocket (SetReq) returns (SetRes);
+  rpc RemRocket (RemReq) returns (RemRes);
+}
+
+message Rocket{
+  int32 id = 1;
+  string name = 2;
+  string type = 3;
+  int32 flights = 4;
+
+}
+
+message GetReq{
+  int32 id = 1;
+}
+
+message GetRes{
+  Rocket rocket = 1;
+}
+
+message SetReq{
+  Rocket rocket = 1;
+}
+
+message SetRes{
+  Rocket rocket = 1;
+}
+
+message RemReq{
+  int32 id = 1;
+}
+
+message RemRes{
+  string status = 1;
+}
