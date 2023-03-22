@@ -8,7 +8,7 @@ import (
 	"github.com/fronomenal/go_rpcket/modules/transport/grpc"
 )
 
-func Start() error {
+func Start(port int) error {
 	dbpool, err := db.Conn()
 	if err != nil {
 		return err
@@ -19,6 +19,7 @@ func Start() error {
 		return err
 	}
 
+	grpc.Port = port
 	rocService := rocket.GetService(dbpool)
 	rocHandler := grpc.GetHandler(rocService)
 
@@ -30,7 +31,7 @@ func Start() error {
 }
 
 func main() {
-	if err := Start(); err != nil {
+	if err := Start(51515); err != nil {
 		log.Fatal(err)
 	}
 }

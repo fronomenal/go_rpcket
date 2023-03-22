@@ -1,6 +1,7 @@
 package grpc
 
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -8,6 +9,8 @@ import (
 	roc "github.com/fronomenal/go_rpcket/protos/v1"
 	"google.golang.org/grpc"
 )
+
+var Port int
 
 type Handler struct {
 	RocketService rocket.RocketService
@@ -19,14 +22,15 @@ func GetHandler(rocService rocket.RocketService) Handler {
 }
 
 func (h Handler) Serve() error {
-	lis, err := net.Listen("tcp", ":5151")
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", Port))
 	if err != nil {
-		log.Print("Failed to listen on port 5151")
+		log.Printf("Failed to listen on port %d", Port)
 		return err
 	}
 
 	rpcServer := grpc.NewServer()
 	roc.RegisterRocketServiceServer(rpcServer, &h)
+	log.Printf("Listening on Port: %d\n", Port)
 
 	if err := rpcServer.Serve(lis); err != nil {
 		log.Printf("Failed to server: %s\n", err)
