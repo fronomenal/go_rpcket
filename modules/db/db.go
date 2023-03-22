@@ -17,7 +17,7 @@ func Conn() (Pool, error) {
 	return Pool{db: db}, nil
 }
 
-func (p Pool) GetByID(id string) (rocket.Rocket, error) {
+func (p Pool) GetByID(id int32) (rocket.Rocket, error) {
 	return rocket.Rocket{}, nil
 }
 
@@ -25,6 +25,6 @@ func (p Pool) Insert(roc rocket.Rocket) (rocket.Rocket, error) {
 	return rocket.Rocket{}, nil
 }
 
-func (p Pool) Remove(id string) error {
+func (p Pool) Remove(id int32) error {
 	return nil
 }

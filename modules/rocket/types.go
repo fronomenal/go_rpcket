@@ -5,7 +5,7 @@ package rocket
 import "context"
 
 type Rocket struct {
-	ID      string
+	ID      int32
 	Name    string
 	Type    string
 	Flights int
@@ -16,13 +16,13 @@ type Service struct {
 }
 
 type Repository interface {
-	GetByID(id string) (Rocket, error)
+	GetByID(id int32) (Rocket, error)
 	Insert(roc Rocket) (Rocket, error)
-	Remove(id string) error
+	Remove(id int32) error
 }
 
 type RocketService interface {
-	GetRocketByID(ctx context.Context, id string) (Rocket, error)
+	GetRocketByID(ctx context.Context, id int32) (Rocket, error)
 	InsertRocket(ctx context.Context, rkt Rocket) (Rocket, error)
-	RemoveRocket(ctx context.Context, id string) error
+	RemoveRocket(ctx context.Context, id int32) error
 }
