@@ -18,7 +18,14 @@ func Conn() (Pool, error) {
 }
 
 func (p Pool) GetByID(id int32) (rocket.Rocket, error) {
-	return rocket.Rocket{}, nil
+	var roc rocket.Rocket
+
+	row := p.db.QueryRow(`SELECT * FROM rockets WHERE id=$1;`, id)
+	if err := row.Scan(&roc); err != nil {
+		return rocket.Rocket{}, err
+	}
+
+	return roc, nil
 }
 
 func (p Pool) Insert(roc rocket.Rocket) (rocket.Rocket, error) {
