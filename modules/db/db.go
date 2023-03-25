@@ -21,7 +21,7 @@ func (p Pool) GetByID(id int32) (rocket.Rocket, error) {
 	var roc rocket.Rocket
 
 	row := p.db.QueryRow(`SELECT * FROM rockets WHERE id=$1;`, id)
-	if err := row.Scan(&roc); err != nil {
+	if err := row.Scan(&roc.ID, &roc.Type, &roc.Name, &roc.Flights); err != nil {
 		return rocket.Rocket{}, err
 	}
 
@@ -29,7 +29,21 @@ func (p Pool) GetByID(id int32) (rocket.Rocket, error) {
 }
 
 func (p Pool) Insert(roc rocket.Rocket) (rocket.Rocket, error) {
-	return rocket.Rocket{}, nil
+
+	rows, err := p.db.NamedQuery(`INSERT INTO rockets(rkt_type, rkt_name, flights) VALUES (:type, :name, :flights) RETURNING *;`, roc)
+	if err != nil {
+		return rocket.Rocket{}, err
+	}
+	defer rows.Close()
+	if !rows.Next() {
+		return rocket.Rocket{}, err
+	}
+
+	if err := rows.Scan(&roc.ID, &roc.Type, &roc.Name, &roc.Flights); err != nil {
+		return roc, err
+	}
+
+	return roc, nil
 }
 
 func (p Pool) Remove(id int32) error {

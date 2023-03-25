@@ -1,6 +1,8 @@
 package rocket
 
-import "context"
+import (
+	"context"
+)
 
 func GetService(repo Repository) Service {
 	return Service{
