@@ -47,5 +47,11 @@ func (p Pool) Insert(roc rocket.Rocket) (rocket.Rocket, error) {
 }
 
 func (p Pool) Remove(id int32) error {
+
+	_, err := p.db.Exec(`DELETE FROM rockets WHERE ID = $1;`, id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

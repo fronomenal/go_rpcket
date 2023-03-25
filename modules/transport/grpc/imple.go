@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/fronomenal/go_rpcket/modules/rocket"
@@ -32,5 +33,12 @@ func (h Handler) SetRocket(ctx context.Context, req *roc.SetReq) (*roc.SetRes, e
 }
 
 func (h Handler) RemRocket(ctx context.Context, req *roc.RemReq) (*roc.RemRes, error) {
-	return &roc.RemRes{}, nil
+	log.Print("In Delete Rocket Endpoint")
+
+	if err := h.RocketService.RemoveRocket(ctx, req.Id); err != nil {
+		log.Println("Failed removing rocket from database")
+		return &roc.RemRes{}, err
+	}
+
+	return &roc.RemRes{Status: fmt.Sprintf("Rocket w/ id %d removed", req.Id)}, nil
 }
