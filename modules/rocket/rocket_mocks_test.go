@@ -34,7 +34,7 @@ func (m *MockRepository) EXPECT() *MockRepositoryMockRecorder {
 }
 
 // GetByID mocks base method.
-func (m *MockRepository) GetByID(arg0 string) (Rocket, error) {
+func (m *MockRepository) GetByID(arg0 int32) (Rocket, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetByID", arg0)
 	ret0, _ := ret[0].(Rocket)
@@ -64,7 +64,7 @@ func (mr *MockRepositoryMockRecorder) Insert(arg0 interface{}) *gomock.Call {
 }
 
 // Remove mocks base method.
-func (m *MockRepository) Remove(arg0 string) error {
+func (m *MockRepository) Remove(arg0 int32) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Remove", arg0)
 	ret0, _ := ret[0].(error)
