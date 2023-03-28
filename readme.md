@@ -31,8 +31,8 @@ Project uses the following packages:
 ### Make
 1. Navigate to the root directory
 2. Run the ff make commands for the desired outcome:
-  * `run-client  -j2`: provisions the client(:8080) and server(:515151) services
-  * **optional**: after running above command, run `test-client` in **another** terminal for e2e test
+ * `run-client -j2`: provisions the client(:8080) and server(:515151) services
+ * **optional**: after running above command, run `test-client` in **another** terminal for e2e test
 3. Client service is now exposed and can be queried
 
 ### Manual
